@@ -1,0 +1,85 @@
+import type { Pricing } from "./types";
+
+export const pricing: Pricing[] = [
+  {
+    modelId: "claude-opus-4-7",
+    inputPerMTokUsd: 15.0,
+    outputPerMTokUsd: 75.0,
+    cachedInputPerMTokUsd: 1.5,
+    batchInputPerMTokUsd: 7.5,
+    notes: "Prompt caching aggressively recommended for agent loops.",
+  },
+  {
+    modelId: "claude-sonnet-4-6",
+    inputPerMTokUsd: 3.0,
+    outputPerMTokUsd: 15.0,
+    cachedInputPerMTokUsd: 0.3,
+    batchInputPerMTokUsd: 1.5,
+    notes: "Best price/perf for production agents in early 2026.",
+  },
+  {
+    modelId: "claude-haiku-4-5",
+    inputPerMTokUsd: 1.0,
+    outputPerMTokUsd: 5.0,
+    cachedInputPerMTokUsd: 0.1,
+    batchInputPerMTokUsd: 0.5,
+  },
+  {
+    modelId: "gpt-5",
+    inputPerMTokUsd: 10.0,
+    outputPerMTokUsd: 30.0,
+    cachedInputPerMTokUsd: 2.5,
+    batchInputPerMTokUsd: 5.0,
+  },
+  {
+    modelId: "gpt-5-mini",
+    inputPerMTokUsd: 0.4,
+    outputPerMTokUsd: 1.6,
+    cachedInputPerMTokUsd: 0.1,
+    batchInputPerMTokUsd: 0.2,
+  },
+  {
+    modelId: "gemini-2-5-pro",
+    inputPerMTokUsd: 7.0,
+    outputPerMTokUsd: 21.0,
+    cachedInputPerMTokUsd: 1.75,
+    batchInputPerMTokUsd: 3.5,
+    notes: "Per-token cost increases above 200K context.",
+  },
+  {
+    modelId: "gemini-2-5-flash",
+    inputPerMTokUsd: 0.35,
+    outputPerMTokUsd: 1.05,
+    cachedInputPerMTokUsd: 0.0875,
+    batchInputPerMTokUsd: 0.175,
+  },
+  {
+    modelId: "grok-4",
+    inputPerMTokUsd: 5.0,
+    outputPerMTokUsd: 15.0,
+  },
+  {
+    modelId: "llama-4-405b-instruct",
+    inputPerMTokUsd: 0.0,
+    outputPerMTokUsd: 0.0,
+    notes: "Open weights — pricing depends on hosting (vLLM, Together, Fireworks, self-hosted).",
+  },
+  {
+    modelId: "mistral-large-3",
+    inputPerMTokUsd: 2.0,
+    outputPerMTokUsd: 6.0,
+    batchInputPerMTokUsd: 1.0,
+  },
+  {
+    modelId: "deepseek-v3-1",
+    inputPerMTokUsd: 0.27,
+    outputPerMTokUsd: 1.1,
+    cachedInputPerMTokUsd: 0.07,
+  },
+  {
+    modelId: "command-r-plus-2025",
+    inputPerMTokUsd: 2.5,
+    outputPerMTokUsd: 10.0,
+    notes: "Volume discounts available for enterprise contracts.",
+  },
+];
