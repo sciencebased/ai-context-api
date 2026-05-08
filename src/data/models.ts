@@ -166,9 +166,9 @@ export const models: Model[] = [
     tone: "irreverent, opinionated",
     censorship: "low",
     bestFor: ["creative writing", "real-time X/Twitter context", "less filtered chat"],
-    notIdealFor: ["regulated enterprise workflows"],
+    notIdealFor: ["regulated enterprise workflows", "deprecated / retiring SKU"],
     blurb:
-      "xAI's flagship. Looser content filters, native access to X data. (deprecated, sunset 2026-05-15 — successor: Grok 4.3.)",
+      "xAI\'s Grok 4 is being retired (sunset 2026-05-15) in favor of Grok 4.3; this entry is kept for continuity.",
   },
   {
     id: "llama-4-maverick",
