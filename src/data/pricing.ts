@@ -1,13 +1,13 @@
 import type { Pricing } from "./types";
 
 export const pricing: Pricing[] = [
-  {
+    {
     modelId: "claude-opus-4-7",
-    inputPerMTokUsd: 15.0,
-    outputPerMTokUsd: 75.0,
-    cachedInputPerMTokUsd: 1.5,
-    batchInputPerMTokUsd: 7.5,
-    notes: "Prompt caching aggressively recommended for agent loops.",
+    inputPerMTokUsd: 5.0,
+    outputPerMTokUsd: 25.0,
+    cachedInputPerMTokUsd: 0.5,
+    batchInputPerMTokUsd: 2.5,
+    notes: "Pricing reflects current Claude API on-demand rates; cache writes priced separately.",
   },
   {
     modelId: "claude-sonnet-4-6",
@@ -24,46 +24,51 @@ export const pricing: Pricing[] = [
     cachedInputPerMTokUsd: 0.1,
     batchInputPerMTokUsd: 0.5,
   },
-  {
+    {
     modelId: "gpt-5",
-    inputPerMTokUsd: 10.0,
-    outputPerMTokUsd: 30.0,
-    cachedInputPerMTokUsd: 2.5,
-    batchInputPerMTokUsd: 5.0,
+    inputPerMTokUsd: 2.5,
+    outputPerMTokUsd: 15.0,
+    cachedInputPerMTokUsd: 0.25,
+    batchInputPerMTokUsd: 1.25,
+    notes: "Batch API discount is 50% (input+output).",
   },
-  {
+    {
     modelId: "gpt-5-mini",
-    inputPerMTokUsd: 0.4,
-    outputPerMTokUsd: 1.6,
-    cachedInputPerMTokUsd: 0.1,
-    batchInputPerMTokUsd: 0.2,
+    inputPerMTokUsd: 0.75,
+    outputPerMTokUsd: 4.5,
+    cachedInputPerMTokUsd: 0.075,
+    batchInputPerMTokUsd: 0.375,
+    notes: "Batch API discount is 50% (input+output).",
   },
-  {
+    {
     modelId: "gemini-2-5-pro",
-    inputPerMTokUsd: 7.0,
-    outputPerMTokUsd: 21.0,
-    cachedInputPerMTokUsd: 1.75,
-    batchInputPerMTokUsd: 3.5,
-    notes: "Per-token cost increases above 200K context.",
+    inputPerMTokUsd: 2.0,
+    outputPerMTokUsd: 12.0,
+    cachedInputPerMTokUsd: 0.2,
+    batchInputPerMTokUsd: 1.0,
+    notes: "Standard tier rates for <=200k tokens; higher rates apply >200k.",
   },
-  {
+    {
     modelId: "gemini-2-5-flash",
-    inputPerMTokUsd: 0.35,
-    outputPerMTokUsd: 1.05,
-    cachedInputPerMTokUsd: 0.0875,
-    batchInputPerMTokUsd: 0.175,
+    inputPerMTokUsd: 0.5,
+    outputPerMTokUsd: 3.0,
+    cachedInputPerMTokUsd: 0.05,
+    batchInputPerMTokUsd: 0.25,
+    notes: "Standard tier rates.",
   },
-  {
+    {
     modelId: "gemini-3-flash",
     inputPerMTokUsd: 0.5,
     outputPerMTokUsd: 3.0,
     cachedInputPerMTokUsd: 0.05,
-    notes: "Preview tier. Audio input priced at $1.00/Mtok. Source: ai.google.dev/gemini-api/docs/pricing.",
+    batchInputPerMTokUsd: 0.25,
+    notes: "Preview/Flash pricing per Gemini Developer API pricing (standard tier).",
   },
   {
     modelId: "grok-4",
-    inputPerMTokUsd: 5.0,
-    outputPerMTokUsd: 15.0,
+    inputPerMTokUsd: 1.25,
+    outputPerMTokUsd: 2.5,
+    notes: "Model retires 2026-05-15; successor Grok 4.3 uses $1.25/$2.50 per 1M input/output tokens.",
   },
   {
     modelId: "llama-4-maverick",
@@ -77,25 +82,24 @@ export const pricing: Pricing[] = [
     outputPerMTokUsd: 6.0,
     batchInputPerMTokUsd: 1.0,
   },
-  {
+    {
     modelId: "deepseek-v4-flash",
     inputPerMTokUsd: 0.14,
     outputPerMTokUsd: 0.28,
     cachedInputPerMTokUsd: 0.0028,
-    notes: "1M context, 384K max output. Cache-hit input = 1/50th of cache-miss input.",
+    notes: "Cache-hit input rate effective 2026-04-26 (per DeepSeek API docs).",
   },
-  {
+    {
     modelId: "deepseek-v4-pro",
     inputPerMTokUsd: 0.435,
     outputPerMTokUsd: 0.87,
     cachedInputPerMTokUsd: 0.003625,
-    notes:
-      "Reasoning tier. Listed price reflects 75% promotional discount through 2026-05-31; full rates ~4x higher after.",
+    notes: "75% promotional discount through 2026-05-31 15:59 UTC (per DeepSeek API docs).",
   },
-  {
+    {
     modelId: "command-r-plus-2025",
-    inputPerMTokUsd: 2.5,
-    outputPerMTokUsd: 10.0,
-    notes: "Volume discounts available for enterprise contracts.",
+    inputPerMTokUsd: 3.0,
+    outputPerMTokUsd: 15.0,
+    notes: "Cohere Command R+ pricing (Cohere pricing page).",
   },
 ];
