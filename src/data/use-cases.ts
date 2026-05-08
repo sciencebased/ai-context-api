@@ -15,7 +15,7 @@ export const useCases: UseCase[] = [
     id: "production-coding-assistant",
     title: "Production coding assistant (IDE / PR review)",
     category: "code-generation",
-    recommendedModels: ["claude-sonnet-4-6", "claude-opus-4-7", "deepseek-v3-1"],
+    recommendedModels: ["claude-sonnet-4-6", "claude-opus-4-7", "deepseek-v4-flash"],
     why:
       "Sonnet 4.6 is the cost/perf sweet spot for diff-grade edits. Use Opus for architectural reviews; DeepSeek if cost is the primary driver.",
     costStrategy:
@@ -45,7 +45,7 @@ export const useCases: UseCase[] = [
     id: "creative-writing",
     title: "Creative / less-filtered writing",
     category: "creative",
-    recommendedModels: ["grok-4", "claude-opus-4-7", "llama-4-405b-instruct"],
+    recommendedModels: ["grok-4", "claude-opus-4-7", "llama-4-maverick"],
     why:
       "Grok 4 has the loosest filters out of the box. Opus 4.7 has the strongest prose voice. Llama gives you full control via fine-tune.",
     costStrategy:

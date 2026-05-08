@@ -54,12 +54,19 @@ export const pricing: Pricing[] = [
     batchInputPerMTokUsd: 0.175,
   },
   {
+    modelId: "gemini-3-flash",
+    inputPerMTokUsd: 0.5,
+    outputPerMTokUsd: 3.0,
+    cachedInputPerMTokUsd: 0.05,
+    notes: "Preview tier. Audio input priced at $1.00/Mtok. Source: ai.google.dev/gemini-api/docs/pricing.",
+  },
+  {
     modelId: "grok-4",
     inputPerMTokUsd: 5.0,
     outputPerMTokUsd: 15.0,
   },
   {
-    modelId: "llama-4-405b-instruct",
+    modelId: "llama-4-maverick",
     inputPerMTokUsd: 0.0,
     outputPerMTokUsd: 0.0,
     notes: "Open weights — pricing depends on hosting (vLLM, Together, Fireworks, self-hosted).",
@@ -71,10 +78,19 @@ export const pricing: Pricing[] = [
     batchInputPerMTokUsd: 1.0,
   },
   {
-    modelId: "deepseek-v3-1",
-    inputPerMTokUsd: 0.27,
-    outputPerMTokUsd: 1.1,
-    cachedInputPerMTokUsd: 0.07,
+    modelId: "deepseek-v4-flash",
+    inputPerMTokUsd: 0.14,
+    outputPerMTokUsd: 0.28,
+    cachedInputPerMTokUsd: 0.0028,
+    notes: "1M context, 384K max output. Cache-hit input = 1/50th of cache-miss input.",
+  },
+  {
+    modelId: "deepseek-v4-pro",
+    inputPerMTokUsd: 0.435,
+    outputPerMTokUsd: 0.87,
+    cachedInputPerMTokUsd: 0.003625,
+    notes:
+      "Reasoning tier. Listed price reflects 75% promotional discount through 2026-05-31; full rates ~4x higher after.",
   },
   {
     modelId: "command-r-plus-2025",
