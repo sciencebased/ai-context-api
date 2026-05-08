@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
+import { apiUrl } from "../lib/apiUrl";
 
 const PROMPTS = [
   "GET /api/recommend?modality=tool-use&maxInputUsdPerMtok=5",
@@ -100,7 +101,7 @@ export function Hero() {
             try /api/recommend
           </Link>
           <a
-            href="/api"
+            href={apiUrl("api")}
             className="inline-flex items-center justify-center rounded-md border border-zinc-700 px-5 py-3 text-sm uppercase tracking-widest text-zinc-300 transition hover:border-neon-lime hover:text-neon-lime"
           >
             curl /api

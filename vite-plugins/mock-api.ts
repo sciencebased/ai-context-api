@@ -1,5 +1,7 @@
-import type { Plugin, Connect } from "vite";
+import type { Plugin, Connect, ResolvedConfig } from "vite";
 import type { IncomingMessage, ServerResponse } from "node:http";
+import { mkdirSync, writeFileSync, copyFileSync, existsSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 import { models, findModel } from "../src/data/models";
 import { pricing } from "../src/data/pricing";
 import { benchmarks } from "../src/data/benchmarks";
@@ -209,9 +211,73 @@ const matchPath = (pattern: string, pathname: string): boolean => {
   return pp.every((seg, i) => seg.startsWith(":") || seg === ap[i]);
 };
 
+// ---------------------------------------------------------------------------
+// Static snapshots for GitHub Pages / any static host. Each non-parameterized
+// endpoint gets a JSON file written to dist/. Query params can't filter on
+// static hosts; the React app does that work client-side instead.
+// ---------------------------------------------------------------------------
+const buildStaticSnapshots = () => {
+  const providersIndex = (() => {
+    const map = new Map<string, number>();
+    for (const m of models) map.set(m.provider, (map.get(m.provider) ?? 0) + 1);
+    return [...map.entries()]
+      .map(([provider, count]) => ({ provider, count }))
+      .sort((a, b) => b.count - a.count);
+  })();
+
+  const indexBody = {
+    name: "ai-context-api",
+    version: "0.1.0",
+    description:
+      "Live, developer-oriented context about LLMs for AI agent architects.",
+    note:
+      "Static snapshot. Query params don't filter on this host — clients filter the full datasets locally.",
+    endpoints: ENDPOINTS.map((e) => ({
+      method: e.method,
+      path: e.path,
+      describe: e.describe,
+    })),
+  };
+
+  const files: { path: string; body: unknown }[] = [
+    // The catalog index lives at /api/index because /api itself has to be a
+    // directory on disk to hold the per-endpoint files below.
+    { path: "api/index", body: indexBody },
+    { path: "api/models", body: { count: models.length, data: models } },
+    { path: "api/models-uses-cases", body: { count: useCases.length, data: useCases } },
+    {
+      path: "api/model-pricing",
+      body: {
+        count: pricing.length,
+        unit: "USD per million tokens",
+        data: pricing,
+      },
+    },
+    {
+      path: "api/model-benchmark",
+      body: { count: benchmarks.length, scale: "0-100", data: benchmarks },
+    },
+    {
+      path: "api/historic-usage-cases",
+      body: { count: historicUsage.length, data: historicUsage },
+    },
+    { path: "api/providers", body: { count: providersIndex.length, data: providersIndex } },
+  ];
+
+  // Note: /api/models/:id is intentionally not snapshotted — keeping
+  // /api/models as a file would collide with /api/models/<id>/ as a dir on
+  // disk. Static deploys redirect callers to the full /api/models catalog.
+  return files;
+};
+
 export function mockApiPlugin(): Plugin {
+  let resolved: ResolvedConfig | undefined;
+
   return {
     name: "ai-context-api:mock",
+    configResolved(c) {
+      resolved = c;
+    },
     configureServer(server) {
       const middleware: Connect.NextHandleFunction = (req, res, next) => {
         if (!req.url || !req.url.startsWith("/api")) return next();
@@ -227,6 +293,27 @@ export function mockApiPlugin(): Plugin {
         }
       };
       server.middlewares.use(middleware);
+    },
+    closeBundle() {
+      if (!resolved || resolved.command !== "build") return;
+      const outDir = resolve(resolved.root, resolved.build.outDir);
+
+      // Write static API snapshots.
+      for (const { path: p, body } of buildStaticSnapshots()) {
+        const outPath = resolve(outDir, p);
+        mkdirSync(dirname(outPath), { recursive: true });
+        writeFileSync(outPath, JSON.stringify(body, null, 2), "utf8");
+      }
+
+      // SPA fallback for GitHub Pages — copy index.html to 404.html so deep
+      // links (e.g. /docs) get the SPA shell instead of a real 404.
+      const indexHtml = resolve(outDir, "index.html");
+      if (existsSync(indexHtml)) {
+        copyFileSync(indexHtml, resolve(outDir, "404.html"));
+      }
+
+      // Disable Jekyll on GitHub Pages so files starting with _ are served.
+      writeFileSync(resolve(outDir, ".nojekyll"), "", "utf8");
     },
   };
 }

@@ -1,4 +1,5 @@
 import { endpoints } from "../data/endpoints";
+import { apiUrl } from "../lib/apiUrl";
 
 export function DocsPage() {
   return (
@@ -89,7 +90,10 @@ export function DocsPage() {
               )}
 
               <div className="mt-5 grid gap-4 md:grid-cols-2">
-                <CodeBlock label="example request" body={`curl ${e.example.url}`} />
+                <CodeBlock
+                  label="example request"
+                  body={`curl ${apiUrl(e.example.url)}`}
+                />
                 <CodeBlock
                   label="response (excerpt)"
                   body={e.example.sampleResponseSnippet}
@@ -98,12 +102,12 @@ export function DocsPage() {
 
               <div className="mt-4">
                 <a
-                  href={e.example.url}
+                  href={apiUrl(e.example.url)}
                   target="_blank"
                   rel="noreferrer"
                   className="text-sm uppercase tracking-widest text-neon-pink hover:text-neon-cyan"
                 >
-                  -&gt; open {e.example.url}
+                  -&gt; open {apiUrl(e.example.url)}
                 </a>
               </div>
             </section>

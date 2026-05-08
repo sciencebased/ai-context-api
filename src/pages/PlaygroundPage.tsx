@@ -1,26 +1,21 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQueries } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
-
-interface Recommendation {
-  model: { id: string; name: string; provider: string; tone: string };
-  pricing: { inputPerMTokUsd: number; outputPerMTokUsd: number };
-  benchmark: {
-    reasoning: number;
-    toolUse: number;
-    longContext: number;
-    speedTokensPerSec: number;
-  };
-  score: number;
-}
-
-interface RecommendResponse {
-  query: Record<string, string>;
-  count: number;
-  ranking: string;
-  data: Recommendation[];
-}
+import type { Benchmark, Model, Modality, Pricing } from "../data/types";
+import { apiUrl } from "../lib/apiUrl";
+import { rankModels } from "../lib/recommend";
 
 const MODALITIES = ["", "text", "vision", "audio", "code", "tool-use"] as const;
+
+interface CatalogResponse<T> {
+  count: number;
+  data: T[];
+}
+
+const fetchJson = async <T,>(url: string): Promise<T> => {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+};
 
 export function PlaygroundPage() {
   const [tone, setTone] = useState("");
@@ -29,7 +24,44 @@ export function PlaygroundPage() {
   const [minTool, setMinTool] = useState("");
   const [minLong, setMinLong] = useState("");
 
-  const url = useMemo(() => {
+  const queries = useQueries({
+    queries: [
+      {
+        queryKey: ["models"],
+        queryFn: () => fetchJson<CatalogResponse<Model>>(apiUrl("api/models")),
+      },
+      {
+        queryKey: ["pricing"],
+        queryFn: () =>
+          fetchJson<CatalogResponse<Pricing>>(apiUrl("api/model-pricing")),
+      },
+      {
+        queryKey: ["benchmarks"],
+        queryFn: () =>
+          fetchJson<CatalogResponse<Benchmark>>(apiUrl("api/model-benchmark")),
+      },
+    ],
+  });
+
+  const [modelsQ, pricingQ, benchQ] = queries;
+  const isLoading = queries.some((q) => q.isLoading);
+  const isError = queries.some((q) => q.error);
+
+  const ranked = useMemo(() => {
+    if (!modelsQ.data || !pricingQ.data || !benchQ.data) return [];
+    return rankModels(modelsQ.data.data, pricingQ.data.data, benchQ.data.data, {
+      tone: tone || undefined,
+      modality: (modality || undefined) as Modality | undefined,
+      maxInputUsdPerMtok:
+        maxInput && Number.isFinite(Number(maxInput)) ? Number(maxInput) : undefined,
+      minToolUse:
+        minTool && Number.isFinite(Number(minTool)) ? Number(minTool) : undefined,
+      minLongContext:
+        minLong && Number.isFinite(Number(minLong)) ? Number(minLong) : undefined,
+    }).slice(0, 10);
+  }, [modelsQ.data, pricingQ.data, benchQ.data, tone, modality, maxInput, minTool, minLong]);
+
+  const exampleUrl = useMemo(() => {
     const p = new URLSearchParams();
     if (tone) p.set("tone", tone);
     if (modality) p.set("modality", modality);
@@ -37,17 +69,8 @@ export function PlaygroundPage() {
     if (minTool) p.set("minToolUse", minTool);
     if (minLong) p.set("minLongContext", minLong);
     const qs = p.toString();
-    return qs ? `/api/recommend?${qs}` : "/api/recommend";
+    return apiUrl(qs ? `api/recommend?${qs}` : "api/recommend");
   }, [tone, modality, maxInput, minTool, minLong]);
-
-  const q = useQuery({
-    queryKey: ["recommend", url],
-    queryFn: async () => {
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return (await res.json()) as RecommendResponse;
-    },
-  });
 
   return (
     <div className="grid gap-8 lg:grid-cols-[320px_1fr]">
@@ -116,24 +139,31 @@ export function PlaygroundPage() {
 
         <div className="rounded-md border border-neon-cyan/30 bg-ink-900/80 p-3">
           <div className="text-[10px] uppercase tracking-[0.3em] text-zinc-500">
-            // request
+            // equivalent request (dev server)
           </div>
           <pre className="mt-1 overflow-x-auto break-all text-xs text-neon-cyan">
-            GET {url}
+            GET {exampleUrl}
           </pre>
+          <div className="mt-2 text-[10px] text-zinc-500 leading-relaxed">
+            On the dev server this filters server-side. On the static deploy
+            the query string is decorative — filtering runs client-side from
+            the catalog snapshots.
+          </div>
         </div>
       </aside>
 
       <div>
-        {q.isLoading && (
+        {isLoading && (
           <div className="text-neon-cyan animate-pulse">// running...</div>
         )}
-        {q.error && <div className="text-neon-pink">// error</div>}
-        {q.data && (
+        {isError && <div className="text-neon-pink">// error</div>}
+        {!isLoading && !isError && (
           <div>
             <div className="mb-3 text-xs text-zinc-400">
-              {q.data.count} match{q.data.count === 1 ? "" : "es"} •{" "}
-              <span className="text-zinc-500">{q.data.ranking}</span>
+              {ranked.length} match{ranked.length === 1 ? "" : "es"} •{" "}
+              <span className="text-zinc-500">
+                score = reasoning + 0.5*toolUse - 0.5*inputUsdPerMtok (illustrative)
+              </span>
             </div>
             <div className="overflow-hidden rounded-md border border-neon-cyan/20">
               <table className="w-full text-sm">
@@ -150,7 +180,7 @@ export function PlaygroundPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {q.data.data.map((r, i) => (
+                  {ranked.map((r, i) => (
                     <tr
                       key={r.model.id}
                       className="border-t border-neon-cyan/10 hover:bg-neon-cyan/5"
@@ -182,7 +212,7 @@ export function PlaygroundPage() {
                       </td>
                     </tr>
                   ))}
-                  {q.data.count === 0 && (
+                  {ranked.length === 0 && (
                     <tr>
                       <td colSpan={8} className="px-3 py-6 text-center text-zinc-500">
                         // no models matched. loosen the filters.

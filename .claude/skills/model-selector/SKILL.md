@@ -26,11 +26,34 @@ Skip this skill for:
 
 ## Where the API lives
 
-By default: `http://localhost:5173` (Vite dev server). If the user is running a
-different port, ask once and remember.
+Two deployments exist:
 
-If the API is unreachable (`ECONNREFUSED` or 404 at `/api`), fall back to
-reading `src/data/*.ts` directly and tell the user the dev server isn't up.
+| Deployment | Base URL |
+| --- | --- |
+| Local dev server | `http://localhost:5173` |
+| GitHub Pages (production) | `https://sciencebased.github.io/ai-context-api` |
+
+Try local first if you suspect the user is running it (`/api/models`
+should return JSON). Otherwise hit the GitHub Pages URL — it works
+unauthenticated from anywhere.
+
+If both are unreachable, fall back to reading `src/data/*.ts` directly and
+tell the user.
+
+### Static-host caveats
+
+The GitHub Pages deploy serves pre-rendered JSON snapshots. That means:
+
+- The endpoint catalog lives at **`/api/index`** (not `/api`) on the
+  static host. On the dev server, `/api` works directly.
+- **`/api/recommend?...`** and **`/api/compare?ids=...`** ignore query
+  strings on the static host — they always return the full dataset.
+  When you need recommendations on the static deploy, fetch
+  `/api/models`, `/api/model-pricing`, `/api/model-benchmark` and apply
+  the filters yourself. The ranking formula is:
+  `score = reasoning + 0.5 * toolUse - 0.5 * inputUsdPerMtok`.
+- **`/api/models/:id`** is dev-server-only. On the static deploy use
+  `/api/models` and find by id.
 
 ## How to query
 

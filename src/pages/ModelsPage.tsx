@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import type { Model, Pricing, Benchmark } from "../data/types";
+import { apiUrl } from "../lib/apiUrl";
 
 interface CatalogResponse<T> {
   count: number;
@@ -16,15 +17,15 @@ const fetchJson = async <T,>(url: string): Promise<T> => {
 export function ModelsPage() {
   const modelsQ = useQuery({
     queryKey: ["models"],
-    queryFn: () => fetchJson<CatalogResponse<Model>>("/api/models"),
+    queryFn: () => fetchJson<CatalogResponse<Model>>(apiUrl("api/models")),
   });
   const pricingQ = useQuery({
     queryKey: ["pricing"],
-    queryFn: () => fetchJson<CatalogResponse<Pricing>>("/api/model-pricing"),
+    queryFn: () => fetchJson<CatalogResponse<Pricing>>(apiUrl("api/model-pricing")),
   });
   const benchQ = useQuery({
     queryKey: ["benchmarks"],
-    queryFn: () => fetchJson<CatalogResponse<Benchmark>>("/api/model-benchmark"),
+    queryFn: () => fetchJson<CatalogResponse<Benchmark>>(apiUrl("api/model-benchmark")),
   });
 
   const [provider, setProvider] = useState<string>("All");

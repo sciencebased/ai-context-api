@@ -112,6 +112,62 @@ npm run typecheck
 
 ---
 
+## Deploy to GitHub Pages
+
+A workflow at `.github/workflows/deploy.yml` builds and publishes the site
+to GitHub Pages on every push to `main`.
+
+**One-time setup** (after pushing this repo to GitHub):
+
+1. **Enable Pages**: in the repo, go to **Settings → Pages** and set
+   **Source** to **GitHub Actions**.
+2. Push to `main`. The workflow runs, the deploy job posts the URL.
+
+The workflow derives the `base` path from the repo name automatically
+(`/<repo>/`), so you don't have to hardcode it. For local testing of the
+exact build that ships, use:
+
+```sh
+VITE_BASE=/ai-context-api/ npm run build
+npx vite preview --base /ai-context-api/
+```
+
+### Live URL
+
+After the first successful deploy: `https://sciencebased.github.io/ai-context-api/`
+
+### How the API works on a static host
+
+GitHub Pages is static-only — there's no Node process to run the Vite mock
+middleware. The build step pre-renders **JSON snapshots** of every
+non-parameterized endpoint into `dist/api/*`:
+
+| Path on disk             | Served at                                         |
+| ------------------------ | ------------------------------------------------- |
+| `dist/api/index`         | `/<base>/api/index` — endpoint catalog            |
+| `dist/api/models`        | `/<base>/api/models` — full model list            |
+| `dist/api/model-pricing` | `/<base>/api/model-pricing`                       |
+| `dist/api/model-benchmark` | `/<base>/api/model-benchmark`                   |
+| `dist/api/models-uses-cases` | `/<base>/api/models-uses-cases`             |
+| `dist/api/historic-usage-cases` | `/<base>/api/historic-usage-cases`       |
+| `dist/api/providers`     | `/<base>/api/providers`                          |
+
+Two endpoints behave differently on the static deploy:
+
+- **`/api/recommend`** — query-string filtering can't run on a static host.
+  The `/playground` page does the same ranking client-side from the
+  catalog snapshots above. The score formula lives in `src/lib/recommend.ts`.
+- **`/api/models/:id`** — dev-only. Use `/api/models` and find the row by
+  id locally (one extra line of code, zero infrastructure).
+
+Two extras the build also drops into `dist/`:
+
+- `404.html` — copy of `index.html`, so deep links like `/docs` get the
+  SPA shell instead of a real 404.
+- `.nojekyll` — disables Jekyll on GitHub Pages.
+
+---
+
 ## Project layout
 
 ```
