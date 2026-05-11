@@ -41,7 +41,7 @@ export const benchmarks: Benchmark[] = [
     source: "Composite (same suites).",
   },
   {
-    modelId: "gpt-5",
+    modelId: "gpt-5-4",
     reasoning: 90,
     coding: 87,
     math: 84,
@@ -51,10 +51,10 @@ export const benchmarks: Benchmark[] = [
     toolUse: 92,
     speedTokensPerSec: 80,
     ttftMs: 900,
-    source: "Composite (same suites).",
+    source: "Composite (same suites). ⚠ Needs refresh vs independent leaderboards; previous row was GPT-5 placeholder.",
   },
   {
-    modelId: "gpt-5-mini",
+    modelId: "gpt-5-4-mini",
     reasoning: 76,
     coding: 73,
     math: 67,
@@ -64,7 +64,7 @@ export const benchmarks: Benchmark[] = [
     toolUse: 84,
     speedTokensPerSec: 160,
     ttftMs: 350,
-    source: "Composite (same suites).",
+    source: "Composite (same suites). ⚠ Needs refresh vs independent leaderboards; previous row was GPT-5 mini placeholder.",
   },
   {
     modelId: "gemini-2-5-pro",
