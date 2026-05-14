@@ -67,6 +67,30 @@ export const models: Model[] = [
     blurb: "Tiny, fast, and cheap. Pair it with Opus/Sonnet for cost-aware agent fleets.",
   },
   {
+    id: "gpt-5-5",
+    name: "GPT-5.5",
+    provider: "OpenAI",
+    family: "GPT-5",
+    // NOTE: OpenAI's pricing page lists GPT-5.5 as current flagship, but does not
+    // clearly disclose a public release date. Using first-seen-on-pricing-page date.
+    releaseDate: "2026-05-13",
+    // NOTE: OpenAI's pricing page notes pricing applies to context lengths under 270K.
+    // Context and max output tokens are not disclosed there; these are carried over.
+    contextWindowTokens: 270_000,
+    maxOutputTokens: 64_000,
+    modalities: ["text", "vision", "audio", "code", "tool-use"],
+    tone: "polished, somewhat formal, strong instruction-following",
+    censorship: "strict",
+    bestFor: [
+      "coding and professional work",
+      "complex, multi-step problems",
+      "frontier reasoning",
+    ],
+    notIdealFor: ["users needing low censorship", "uncensored creative writing"],
+    blurb:
+      "OpenAI's current flagship on the API pricing page (as of 2026-05-13). Metadata needs confirmation from model docs.",
+  },
+  {
     id: "gpt-5-4",
     name: "GPT-5.4",
     provider: "OpenAI",

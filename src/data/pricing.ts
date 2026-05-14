@@ -25,6 +25,13 @@ export const pricing: Pricing[] = [
     batchInputPerMTokUsd: 0.5,
   },
   {
+    modelId: "gpt-5-5",
+    inputPerMTokUsd: 5.0,
+    outputPerMTokUsd: 30.0,
+    cachedInputPerMTokUsd: 0.5,
+    notes: "OpenAI API pricing page lists GPT-5.5 at $5.00/$30.00; pricing shown is for context lengths under 270K.",
+  },
+  {
     modelId: "gpt-5-4",
     inputPerMTokUsd: 2.5,
     outputPerMTokUsd: 15.0,
