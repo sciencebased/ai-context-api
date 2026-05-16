@@ -125,6 +125,25 @@ export const models: Model[] = [
     blurb: "Cheap, fast small sibling to GPT-5. Useful as a router or first-pass model.",
   },
   {
+    id: "gpt-5-4-nano",
+    name: "GPT-5.4 nano",
+    provider: "OpenAI",
+    family: "GPT-5",
+    // NOTE: pricing table lists this SKU but OpenAI does not publish a clear GA release date in the pricing doc.
+    // Using first-seen-on-pricing-page date.
+    releaseDate: "2026-05-16",
+    // NOTE: context window / max output tokens not disclosed on pricing doc; carried over as placeholders.
+    contextWindowTokens: 270_000,
+    maxOutputTokens: 16_000,
+    modalities: ["text", "tool-use"],
+    tone: "concise, helpful",
+    censorship: "strict",
+    bestFor: ["ultra-low-cost routing", "high-volume classification", "drafting"],
+    notIdealFor: ["agentic deep work"],
+    blurb: "Smallest GPT-5 family SKU listed on the OpenAI API pricing table; metadata needs confirmation from model docs.",
+  },
+
+  {
     id: "gemini-2-5-pro",
     name: "Gemini 2.5 Pro",
     provider: "Google",
