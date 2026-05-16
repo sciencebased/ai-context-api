@@ -29,7 +29,7 @@ export const pricing: Pricing[] = [
     inputPerMTokUsd: 5.0,
     outputPerMTokUsd: 30.0,
     cachedInputPerMTokUsd: 0.5,
-    notes: "OpenAI API pricing page lists GPT-5.5 at $5.00/$30.00; pricing shown is for context lengths under 270K.",
+    notes: "OpenAI API pricing table: $5.00/$30.00 (short context) and $10.00/$45.00 (long context).",
   },
   {
     modelId: "gpt-5-4",
@@ -37,7 +37,7 @@ export const pricing: Pricing[] = [
     outputPerMTokUsd: 15.0,
     cachedInputPerMTokUsd: 0.25,
     batchInputPerMTokUsd: 1.25,
-    notes: "OpenAI API pricing page lists GPT-5.4 at $2.50/$15.00 with 50% Batch discount; pricing shown is for context lengths under 270K.",
+    notes: "OpenAI API pricing table: $2.50/$15.00 (short context) and $5.00/$22.50 (long context).",
   },
   {
     modelId: "gpt-5-4-mini",
@@ -45,7 +45,7 @@ export const pricing: Pricing[] = [
     outputPerMTokUsd: 4.5,
     cachedInputPerMTokUsd: 0.075,
     batchInputPerMTokUsd: 0.375,
-    notes: "OpenAI API pricing page lists GPT-5.4 mini at $0.75/$4.50 with 50% Batch discount; pricing shown is for context lengths under 270K.",
+    notes: "OpenAI API pricing table (short context).",
   },
   {
     modelId: "gemini-2-5-pro",
