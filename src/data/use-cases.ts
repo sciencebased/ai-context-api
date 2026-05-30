@@ -45,9 +45,9 @@ export const useCases: UseCase[] = [
     id: "creative-writing",
     title: "Creative / less-filtered writing",
     category: "creative",
-    recommendedModels: ["grok-4", "claude-opus-4-7", "llama-4-maverick"],
+    recommendedModels: ["grok-4-3", "claude-opus-4-7", "llama-4-maverick"],
     why:
-      "Grok 4 has the loosest filters out of the box. Opus 4.7 has the strongest prose voice. Llama gives you full control via fine-tune.",
+      "Grok 4.3 has the loosest filters out of the box. Opus 4.7 has the strongest prose voice. Llama gives you full control via fine-tune.",
     costStrategy:
       "Creative latency tolerances are usually high — drop to batch and cache the system prompt aggressively.",
   },
