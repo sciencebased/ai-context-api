@@ -40,3 +40,16 @@ No use-case updates collected today.
 ## Historic-usage
 
 No historic-usage updates collected today.
+
+---
+
+## Addendum — 2026-05-30 (escalation follow-up)
+
+Escalation run 4753e843 flagged a new Anthropic flagship. Verified against the live Anthropic model docs and pricing page (redirects to https://platform.claude.com/docs/en/docs/about-claude/models and .../pricing).
+
+### Added
+- **Claude Opus 4.8** (`claude-opus-4-8`): now Anthropic's most capable model ("NextOpus" in docs); 1M-token context, 128K max output. Pricing $5 input / $25 output per MTok, cache read (hit) $0.50/MTok, Batch API $2.50 in / $12.50 out. Knowledge cutoff Jan 2026. The migration anchor `#migrating-to-claude-opus-4-8` and `NextOpusId` confirm the API ID `claude-opus-4-8`. Sources: https://platform.claude.com/docs/en/docs/about-claude/models , https://platform.claude.com/docs/en/docs/about-claude/pricing
+
+### Verified unchanged (Anthropic)
+- Opus 4.7 is now listed under "Legacy models" at the same $5/$25; its 128K max-output value (set above) remains correct. Opus 4.6/4.5 are also $5/$25 but are legacy SKUs the dataset does not track — not added (avoids dataset bloat; no schema need).
+- Sonnet 4.6 (1M ctx / 64K max output) and Haiku 4.5 ($1/$5) confirmed against the same docs.
