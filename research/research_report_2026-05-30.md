@@ -1,0 +1,42 @@
+# Daily AI vendor refresh — 2026-05-30 (escalation 4753e843)
+
+Locked providers: Anthropic, OpenAI, Google, Meta, Mistral, DeepSeek, xAI, Cohere.
+
+Escalation run 4753e843 flagged potential material updates across five vendors. Each candidate was re-verified against primary / authoritative official sources before any change. This report covers the **Cohere** correction made on this branch; the **Anthropic** (Opus 4.8) and **xAI** (grok-4 → grok-4.3) changes were folded into the existing open PRs (#7 and #8 respectively) to avoid duplicate PRs.
+
+## Diff & Freshness
+
+### Cohere — corrected (this branch)
+- The dataset tracked a non-existent SKU `command-r-plus-2025` ($3 / $15). Cohere's pricing page lists **no "2025" Command R+**. The real, current SKUs are **Command R+ 08-2024 ($2.50 in / $10 out)** and the older **Command R+ 04-2024 ($3 in / $15 out)**. Source: https://cohere.com/pricing
+- Decision: migrate the entry to the canonical latest **`command-r-plus-08-2024`** at **$2.50 / $10** (release 2024-08-30). Cross-references in benchmarks and use-cases updated to the new id. The old $3/$15 value matched the older 04-2024 SKU, confirming the stored id/price pairing was stale/inconsistent.
+
+### Anthropic — handled in PR #7 (data-refresh-2026-05-28)
+- Added **Claude Opus 4.8** (`claude-opus-4-8`): 1M ctx, 128K max output, $5/$25, cache read $0.50, batch $2.50/$12.50. It is now Anthropic's flagship ("NextOpus"); Opus 4.7 is legacy. Opus 4.6/4.5 (also $5/$25) are legacy SKUs not tracked — not added to avoid dataset bloat. Sources: https://platform.claude.com/docs/en/docs/about-claude/models , .../pricing
+
+### xAI — handled in PR #8 (data-refresh-2026-05-29)
+- `grok-4` was **retired 2026-05-15** and now redirects to **`grok-4.3`** at standard rates ($1.25 / $2.50, $0.20 cached, 1M ctx). The proposed $3/$15 change (from the x.ai/api marketing page) was rejected as a stale secondary source; the entry was migrated to the live `grok-4-3` id. Source: https://docs.x.ai/docs/models
+
+### Google — inconclusive earlier, now confirmed UNCHANGED
+- The escalation noted absent paid-tier prices in a prior fetch. Re-fetch of https://ai.google.dev/gemini-api/docs/pricing shows paid-tier prices that **match the current dataset exactly**: Gemini 2.5 Pro $1.25 in / $10 out (≤200k), Gemini 2.5 Flash $0.30 in / $2.50 out. **No change.**
+
+### Meta — held back (no clean primary metadata)
+- Official Meta (llama.com) remains robots-blocked. Azure AI Foundry's model catalog confirms Llama 4 Maverick exists as a natively-multimodal MoE but **does not publish numeric context window / max output** values. No reliable primary number found, so Llama 4 Maverick metadata is **left unchanged**. Source checked: https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/models-featured
+
+## Models
+
+### Cohere
+- `command-r-plus-08-2024` (Command R+ 08-2024): 128K context; $2.50 input / $10 output per 1M tokens. Source: https://cohere.com/pricing
+
+## Pricing
+
+### Cohere
+- `command-r-plus-08-2024`: $2.50 input / $10.00 output per 1M tokens (list). Source: https://cohere.com/pricing
+
+## Benchmarks
+- No new benchmark source integrated; existing Command R+ row re-pointed to `command-r-plus-08-2024` (scores carried over).
+
+## Use-cases
+- Enterprise-RAG and regulated-EU use cases re-pointed from `command-r-plus-2025` to `command-r-plus-08-2024`.
+
+## Historic-usage
+- No dataset changes made today.

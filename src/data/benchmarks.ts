@@ -181,7 +181,7 @@ export const benchmarks: Benchmark[] = [
     source: "⚠ vendor-reported. Reasoning-tier sibling of V4 Flash; pending independent eval.",
   },
   {
-    modelId: "command-r-plus-2025",
+    modelId: "command-r-plus-08-2024",
     reasoning: 76,
     coding: 70,
     math: 65,

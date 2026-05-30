@@ -104,9 +104,9 @@ export const pricing: Pricing[] = [
     notes: "75% promotional discount through 2026-05-31 15:59 UTC (per DeepSeek API docs).",
   },
     {
-    modelId: "command-r-plus-2025",
-    inputPerMTokUsd: 3.0,
-    outputPerMTokUsd: 15.0,
-    notes: "Cohere Command R+ pricing (Cohere pricing page).",
+    modelId: "command-r-plus-08-2024",
+    inputPerMTokUsd: 2.5,
+    outputPerMTokUsd: 10.0,
+    notes: "Cohere Command R+ 08-2024 list pricing per cohere.com/pricing ($2.50 in / $10 out per 1M tokens).",
   },
 ];
