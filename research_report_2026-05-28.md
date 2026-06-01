@@ -53,3 +53,13 @@ Escalation run 4753e843 flagged a new Anthropic flagship. Verified against the l
 ### Verified unchanged (Anthropic)
 - Opus 4.7 is now listed under "Legacy models" at the same $5/$25; its 128K max-output value (set above) remains correct. Opus 4.6/4.5 are also $5/$25 but are legacy SKUs the dataset does not track — not added (avoids dataset bloat; no schema need).
 - Sonnet 4.6 (1M ctx / 64K max output) and Haiku 4.5 ($1/$5) confirmed against the same docs.
+
+---
+
+## Addendum — 2026-06-01 (escalation 4753e843 re-verification)
+
+Re-checked the live Anthropic model docs for escalation run 4753e843. **No data changes** to this PR.
+
+- **Claude Opus 4.8** (`claude-opus-4-8`): re-confirmed as the current "NextOpus" flagship — 1M context, 128K max output, $5 in / $25 out per MTok. The values already added in this PR match the live docs exactly.
+- **releaseDate held conservative**: the model docs do **not** state an explicit GA/release date for Opus 4.8 (the page uses templated `<NextOpus />` placeholders). The `releaseDate: "2026-05-28"` in this PR is a first-seen-on-page date, consistent with the repo's existing convention for GPT-5.5 / GPT-5.4 nano. Left unchanged; not represented as a vendor-disclosed date.
+- Source: https://platform.claude.com/docs/en/docs/about-claude/models (301 from docs.anthropic.com)
