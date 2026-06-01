@@ -40,3 +40,18 @@ Escalation run 4753e843 flagged potential material updates across five vendors. 
 
 ## Historic-usage
 - No dataset changes made today.
+
+---
+
+## Addendum — 2026-06-01 (escalation 4753e843 re-verification)
+
+Closing out the remaining escalation items. **No data changes** to this PR (Cohere correction stands as-is).
+
+### DeepSeek V4 Pro post-promo — held back (no explicit rate published)
+- The DeepSeek pricing page (https://api-docs.deepseek.com/quick_start/pricing) states the 75% promotional discount for `deepseek-v4-pro` ends **2026-05-31 15:59 UTC** and that pricing "will be officially adjusted to **1/4 of the original price** after the promotion ends."
+- The page does **not list explicit post-promo dollar amounts**. Critically, "75% discount" and "1/4 of the original price" are arithmetically the same multiplier (×0.25), so the snippet is self-contradictory about whether the rate actually changes. The current stored values ($0.435 in / $0.87 out / $0.003625 cache-hit) already equal 1/4 of the implied original.
+- **Decision: dataset left unchanged.** Per the conservative source-backed policy, we do not infer a new post-promo number that the primary source does not explicitly state. No DeepSeek PR was opened (no existing PR touches DeepSeek, and the bar for a new PR — primary docs explicitly listing current rates — is not met).
+- Follow-up: once the promo window has fully lapsed and DeepSeek publishes explicit standard rates, update `deepseek-v4-pro` pricing and refresh its model blurb (which still reads "discounted 75% through 2026-05-31"). Tracked as a held-back item, not actioned today.
+
+### Grok Build 0.1 — held back
+- Documented in PR #8's report (research/research_report_2026-05-29.md): specialty xAI coding SKU, outside the locked one-flagship-per-provider strategy and missing schema-required metadata. Not added.
