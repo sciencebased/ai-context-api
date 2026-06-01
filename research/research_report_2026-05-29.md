@@ -38,3 +38,20 @@ An earlier draft of this report proposed setting the stored `grok-4` SKU to **$3
 
 ## Historic-usage
 - No dataset changes made today.
+
+---
+
+## Addendum — 2026-06-01 (escalation 4753e843 re-verification)
+
+Re-checked the live xAI models page (https://docs.x.ai/developers/models) for escalation run 4753e843. **No data changes** to this PR.
+
+### Grok 4.3 — re-confirmed
+- Page lists **Grok 4.3** at **$1.25 input / $2.50 output per 1M tokens, 1M context** — identical to the values already migrated in this PR. The `grok-4-3` entry (id, pricing, cached input $0.20, 1M ctx) is correct as-is.
+
+### Grok Build 0.1 — held back (deliberately not added)
+- The same page now also lists **Grok Build 0.1** at **$1.00 input / $2.00 output per 1M tokens, 256K context** — a specialty coding/agentic SKU.
+- **Decision: not added to the dataset.** Rationale:
+  - The dataset tracks one canonical frontier/flagship chat model per locked provider; Grok Build 0.1 is a specialty build-agent SKU outside that scope (adding it expands provider coverage strategy, which is locked).
+  - The `Model` schema requires `releaseDate`, `tone`, `censorship`, `bestFor`, `notIdealFor`, and `blurb`. None of these are disclosed by the primary source, and the models page does not give `maxOutputTokens` or a definitive modality list (flagged unverified). Populating them would require inventing unverified metadata, which violates the conservative source-backed policy.
+  - If product direction later decides to track xAI specialty SKUs, this can be added in a dedicated PR once a model subpage discloses the missing fields.
+- Source: https://docs.x.ai/developers/models
