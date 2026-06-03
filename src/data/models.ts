@@ -2,13 +2,37 @@ import type { Model } from "./types";
 
 export const models: Model[] = [
   {
+    id: "claude-opus-4-8",
+    name: "Claude Opus 4.8",
+    provider: "Anthropic",
+    family: "Claude 4",
+    releaseDate: "2026-05-28",
+    contextWindowTokens: 1_000_000,
+    maxOutputTokens: 128_000,
+    modalities: ["text", "vision", "code", "tool-use"],
+    tone: "thoughtful, collaborative, willing to push back",
+    censorship: "balanced",
+    bestFor: [
+      "long-horizon agent loops",
+      "complex code refactors across many files",
+      "research-grade reasoning",
+      "high-autonomy agentic work",
+    ],
+    notIdealFor: [
+      "high-throughput cheap classification",
+      "ultra-low-latency UX",
+    ],
+    blurb:
+      "Anthropic's most capable model for complex reasoning and agentic coding. 1M-token context with a new tokenizer; successor to Opus 4.7.",
+  },
+  {
     id: "claude-opus-4-7",
     name: "Claude Opus 4.7",
     provider: "Anthropic",
     family: "Claude 4",
     releaseDate: "2026-02-12",
     contextWindowTokens: 1_000_000,
-    maxOutputTokens: 64_000,
+    maxOutputTokens: 128_000,
     modalities: ["text", "vision", "code", "tool-use"],
     tone: "thoughtful, collaborative, willing to push back",
     censorship: "balanced",
@@ -23,7 +47,7 @@ export const models: Model[] = [
       "ultra-low-latency UX",
     ],
     blurb:
-      "Anthropic's flagship reasoning model. Best-in-class for sustained agentic work and code understanding over million-token contexts.",
+      "Previous-generation Anthropic flagship (now legacy). Strong sustained agentic work and code understanding over million-token contexts.",
   },
   {
     id: "claude-sonnet-4-6",
@@ -31,8 +55,9 @@ export const models: Model[] = [
     provider: "Anthropic",
     family: "Claude 4",
     releaseDate: "2025-12-03",
-    contextWindowTokens: 400_000,
-    maxOutputTokens: 32_000,
+    // NOTE: Anthropic model docs list Sonnet 4.6 at 1M context / 64K max output.
+    contextWindowTokens: 1_000_000,
+    maxOutputTokens: 64_000,
     modalities: ["text", "vision", "code", "tool-use"],
     tone: "crisp, professional, balanced",
     censorship: "balanced",
