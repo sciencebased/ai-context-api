@@ -25,7 +25,7 @@ export const useCases: UseCase[] = [
     id: "enterprise-rag",
     title: "Enterprise RAG with citations",
     category: "rag",
-    recommendedModels: ["command-r-plus-2025", "claude-sonnet-4-6", "gemini-2-5-pro"],
+    recommendedModels: ["command-r-plus-08-2024", "claude-sonnet-4-6", "gemini-2-5-pro"],
     why:
       "Cohere's Command R+ is purpose-built for grounded answers with citations. Gemini 2.5 Pro shines when the corpus is pasted into a single 1M+ token context. Sonnet is the safe middle.",
     costStrategy:
@@ -65,7 +65,7 @@ export const useCases: UseCase[] = [
     id: "regulated-eu-deployment",
     title: "Regulated EU / data-residency deployment",
     category: "support",
-    recommendedModels: ["mistral-large-3", "command-r-plus-2025"],
+    recommendedModels: ["mistral-large-3", "command-r-plus-08-2024"],
     why:
       "Mistral hosts in EU regions. Cohere offers private deployment options for regulated industries (finance, healthcare).",
     costStrategy:

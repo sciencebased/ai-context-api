@@ -85,9 +85,10 @@ export const pricing: Pricing[] = [
   },
   {
     modelId: "mistral-large-3",
-    inputPerMTokUsd: 2.0,
-    outputPerMTokUsd: 6.0,
-    batchInputPerMTokUsd: 1.0,
+    inputPerMTokUsd: 0.5,
+    outputPerMTokUsd: 1.5,
+    batchInputPerMTokUsd: 0.25,
+    notes: "Official Mistral pricing (mistral.ai/pricing, 2026-06-03): $0.5/$1.5 per 1M tokens; batch processing gets 50% discount.",
   },
     {
     modelId: "deepseek-v4-flash",
@@ -104,9 +105,9 @@ export const pricing: Pricing[] = [
     notes: "75% promotional discount through 2026-05-31 15:59 UTC (per DeepSeek API docs).",
   },
     {
-    modelId: "command-r-plus-2025",
-    inputPerMTokUsd: 3.0,
-    outputPerMTokUsd: 15.0,
-    notes: "Cohere Command R+ pricing (Cohere pricing page).",
+    modelId: "command-r-plus-08-2024",
+    inputPerMTokUsd: 2.5,
+    outputPerMTokUsd: 10.0,
+    notes: "Cohere Command R+ 08-2024 list pricing per cohere.com/pricing ($2.50 in / $10 out per 1M tokens).",
   },
 ];
