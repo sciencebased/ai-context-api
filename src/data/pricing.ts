@@ -85,9 +85,10 @@ export const pricing: Pricing[] = [
   },
   {
     modelId: "mistral-large-3",
-    inputPerMTokUsd: 2.0,
-    outputPerMTokUsd: 6.0,
-    batchInputPerMTokUsd: 1.0,
+    inputPerMTokUsd: 0.5,
+    outputPerMTokUsd: 1.5,
+    batchInputPerMTokUsd: 0.25,
+    notes: "Official Mistral pricing (mistral.ai/pricing, 2026-06-03): $0.5/$1.5 per 1M tokens; batch processing gets 50% discount.",
   },
     {
     modelId: "deepseek-v4-flash",

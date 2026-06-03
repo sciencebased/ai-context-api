@@ -55,3 +55,16 @@ Closing out the remaining escalation items. **No data changes** to this PR (Cohe
 
 ### Grok Build 0.1 — held back
 - Documented in PR #8's report (research/research_report_2026-05-29.md): specialty xAI coding SKU, outside the locked one-flagship-per-provider strategy and missing schema-required metadata. Not added.
+
+---
+
+## Addendum — 2026-06-03 (escalation 4753e843 — Mistral Large 3 repricing)
+
+### Mistral — corrected (this branch)
+- The dataset tracked `mistral-large-3` at **$2.00 in / $6.00 out** (batch $1.00). The official Mistral pricing page now lists **Mistral Large 3 at $0.5 input / $1.5 output per 1M tokens** ("Open-weight, general-purpose, flagship multimodal and multilingual model"). Source: https://mistral.ai/pricing/ (verified 2026-06-03).
+- **Decision: updated** `mistral-large-3` to **$0.5 / $1.5**. The change maps cleanly to the existing `Pricing` schema and model id — no new id, no schema change required.
+- **Batch discount:** Mistral's page states batch processing gets a general **50% discount** but does not enumerate a per-model batch line for Large 3. The schema has an optional `batchInputPerMTokUsd` field; the prior entry carried batch = 50% of input. To stay consistent and conservative, `batchInputPerMTokUsd` was updated to **$0.25** (50% of the new $0.5 input). This is a derived value from the stated general discount, not an explicit per-model figure from Mistral; noted here per the source-backed policy.
+- **No new PR opened.** Per the daily-refresh duplicate-avoidance strategy, this correction was folded into the existing open PR #9 (branch `data-refresh-2026-05-30`) rather than opening a new daily-refresh PR. PRs #6/#7/#8 left unmodified.
+
+### Other Mistral SKUs on the pricing page — not added
+- The page also lists Mistral Medium 3.5 ($1.5/$7.5), Small 4 ($0.1/$0.3), Devstral 2 ($0.4/$2), Codestral ($0.3/$0.9). These are outside the locked one-flagship-per-provider dataset strategy and were **not** added to avoid dataset bloat.
