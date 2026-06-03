@@ -73,9 +73,10 @@ export const pricing: Pricing[] = [
   },
   {
     modelId: "grok-4",
-    inputPerMTokUsd: 1.25,
-    outputPerMTokUsd: 2.5,
-    notes: "Model retires 2026-05-15; successor Grok 4.3 uses $1.25/$2.50 per 1M input/output tokens.",
+    inputPerMTokUsd: 3.0,
+    outputPerMTokUsd: 15.0,
+    notes:
+      "xAI API pricing page lists grok-4 at $3.00 input / $15.00 output per 1M tokens (as of 2026-05-24).",
   },
   {
     modelId: "llama-4-maverick",
