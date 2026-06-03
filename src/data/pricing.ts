@@ -2,6 +2,14 @@ import type { Pricing } from "./types";
 
 export const pricing: Pricing[] = [
     {
+    modelId: "claude-opus-4-8",
+    inputPerMTokUsd: 5.0,
+    outputPerMTokUsd: 25.0,
+    cachedInputPerMTokUsd: 0.5,
+    batchInputPerMTokUsd: 2.5,
+    notes: "Claude API on-demand rates; cache read (hit) $0.50/MTok, Batch API $2.50 in / $12.50 out per MTok.",
+  },
+    {
     modelId: "claude-opus-4-7",
     inputPerMTokUsd: 5.0,
     outputPerMTokUsd: 25.0,
