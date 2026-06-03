@@ -119,7 +119,7 @@ export const benchmarks: Benchmark[] = [
     source: "⚠ vendor-reported preview-tier estimate; pending Artificial Analysis / MMMU re-run.",
   },
   {
-    modelId: "grok-4",
+    modelId: "grok-4-3",
     reasoning: 84,
     coding: 78,
     math: 81,

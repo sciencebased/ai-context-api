@@ -80,11 +80,12 @@ export const pricing: Pricing[] = [
     notes: "Preview/Flash pricing per Gemini Developer API pricing (standard tier).",
   },
   {
-    modelId: "grok-4",
-    inputPerMTokUsd: 3.0,
-    outputPerMTokUsd: 15.0,
+    modelId: "grok-4-3",
+    inputPerMTokUsd: 1.25,
+    outputPerMTokUsd: 2.5,
+    cachedInputPerMTokUsd: 0.2,
     notes:
-      "xAI API pricing page lists grok-4 at $3.00 input / $15.00 output per 1M tokens (as of 2026-05-24).",
+      "xAI docs.x.ai pricing for grok-4.3 (1M context). Retired slugs (grok-4, grok-4-fast) redirect here at standard grok-4.3 rates.",
   },
   {
     modelId: "llama-4-maverick",
