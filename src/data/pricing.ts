@@ -56,6 +56,13 @@ export const pricing: Pricing[] = [
     notes: "OpenAI API pricing table (short context).",
   },
   {
+    modelId: "gpt-5-4-nano",
+    inputPerMTokUsd: 0.20,
+    outputPerMTokUsd: 1.25,
+    cachedInputPerMTokUsd: 0.02,
+    notes: "OpenAI API pricing table (short context).",
+  },
+  {
     modelId: "gemini-2-5-pro",
     inputPerMTokUsd: 1.25,
     outputPerMTokUsd: 10.0,
@@ -95,9 +102,10 @@ export const pricing: Pricing[] = [
   },
   {
     modelId: "mistral-large-3",
-    inputPerMTokUsd: 2.0,
-    outputPerMTokUsd: 6.0,
-    batchInputPerMTokUsd: 1.0,
+    inputPerMTokUsd: 0.5,
+    outputPerMTokUsd: 1.5,
+    batchInputPerMTokUsd: 0.25,
+    notes: "Mistral pricing page lists $0.50/$1.50 per 1M tokens; batch processing gets a 50% discount.",
   },
     {
     modelId: "deepseek-v4-flash",
