@@ -95,9 +95,10 @@ export const pricing: Pricing[] = [
   },
   {
     modelId: "mistral-large-3",
-    inputPerMTokUsd: 2.0,
-    outputPerMTokUsd: 6.0,
-    batchInputPerMTokUsd: 1.0,
+    inputPerMTokUsd: 0.5,
+    outputPerMTokUsd: 1.5,
+    notes:
+      "Mistral pricing page lists Mistral Large 3 at $0.50 input / $1.50 output per 1M tokens; page also notes batch processing gets a 50% discount.",
   },
     {
     modelId: "deepseek-v4-flash",
@@ -115,8 +116,9 @@ export const pricing: Pricing[] = [
   },
     {
     modelId: "command-r-plus-2025",
-    inputPerMTokUsd: 3.0,
-    outputPerMTokUsd: 15.0,
-    notes: "Cohere Command R+ pricing (Cohere pricing page).",
+    inputPerMTokUsd: 2.5,
+    outputPerMTokUsd: 10.0,
+    notes:
+      "Cohere pricing page lists Command R+ 08-2024 at $2.50 input / $10.00 output per 1M tokens (existing customers).",
   },
 ];
